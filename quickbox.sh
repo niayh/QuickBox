@@ -1767,9 +1767,7 @@ clear
 #_locale
 _repos
 _hostname
-echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
 _askcsf
-echo -n "Building required user directories ... ";_skel & spinner $!;echo
 _askffmpeg
 _askrtorrent
 if [[ ${csf} == "yes" ]]; then
@@ -1795,6 +1793,8 @@ _rtorrent & spinner $!;echo
 if [[ ${ffmpeg} == "yes" ]]; then
     _ffmpeg & spinner $!;echo;
 fi
+echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
+echo -n "Building required user directories ... ";_skel & spinner $!;echo
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo;
 #_askshell;
 _adduser;_apachesudo
