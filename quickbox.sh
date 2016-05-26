@@ -1768,7 +1768,10 @@ clear
 _repos
 _hostname
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
-_askcsf;
+_askcsf
+echo -n "Building required user directories ... ";_skel & spinner $!;echo
+_askffmpeg
+_askrtorrent
 if [[ ${csf} == "yes" ]]; then
     _csf & spinner $!;echo
     _csfsendmail1 & spinner $!;echo
@@ -1786,15 +1789,12 @@ if [[ ${csf} == "yes" ]]; then
 else
     _denyhosts
 fi
-echo -n "Building required user directories ... ";_skel & spinner $!;echo
-_askffmpeg;
-if [[ ${ffmpeg} == "yes" ]]; then
-    _ffmpeg & spinner $!;echo;
-fi
-_askrtorrent
 _xmlrpc & spinner $!;echo
 _libtorrent & spinner $!;echo
 _rtorrent & spinner $!;echo
+if [[ ${ffmpeg} == "yes" ]]; then
+    _ffmpeg & spinner $!;echo;
+fi
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo;
 #_askshell;
 _adduser;_apachesudo
