@@ -1764,8 +1764,11 @@ _askcontinue
 _ssdpblock
 echo -n "Updating system ... ";_updates & spinner $!;echo
 clear
+echo -n "Building required user directories ... ";_skel & spinner $!;echo
+
 #_locale
 _repos
+_adduser;_apachesudo
 _hostname
 _askcsf
 _askffmpeg
@@ -1794,10 +1797,8 @@ if [[ ${ffmpeg} == "yes" ]]; then
     _ffmpeg & spinner $!;echo;
 fi
 echo -n "Installing all needed dependencies ... ";_depends & spinner $!;echo
-echo -n "Building required user directories ... ";_skel & spinner $!;echo
 echo -n "Installing rutorrent into /srv ... ";_rutorrent & spinner $!;echo;
 #_askshell;
-_adduser;_apachesudo
 echo -n "Setting up seedbox.conf for apache ... ";_apacheconf & spinner $!;echo
 echo -n "Installing .rtorrent.rc for ${username} ... ";_rconf & spinner $!;echo
 echo -n "Installing rutorrent plugins ... ";_plugins & spinner $!;echo
